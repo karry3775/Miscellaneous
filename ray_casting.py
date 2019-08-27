@@ -21,7 +21,9 @@ ob2 = Obstacles(5,8,1)
 ob3 = Obstacles(8,6,1.5)
 ob4 = Obstacles(5,2,0.75)
 ob5 = Obstacles(9,1,1)
-obs_all = [ob1, ob2, ob3, ob4, ob5]
+ob6 = Obstacles(2,6,1.5)
+ob7 = Obstacles(5,4,0.1)
+obs_all = [ob1, ob2, ob3, ob4, ob5, ob6, ob7]
 
 x_residual = []
 y_residual = []
@@ -36,7 +38,7 @@ def plot_setup():
     plt.gca().set_facecolor((0.0, 0.0, 0.0))
 
 def plot_obs(ob):
-    c1 = plt.Circle((ob.x, ob.y),ob.radius,fc='w',ec='k',fill=True)
+    c1 = plt.Circle((ob.x, ob.y),ob.radius,fc='grey',ec='w',fill=True)
     plt.gca().add_patch(c1)
 
 def plot_residual(x_res, y_res):
@@ -57,7 +59,7 @@ def magic_function(start_x, start_y, angle):
             if dist<best_rad:
                 best_rad = dist
         #draw a circle
-        c = plt.Circle((start_x, start_y), best_rad, ec='w',fill=True,fc='w',alpha=0.5)
+        c = plt.Circle((start_x, start_y), best_rad, ec='w',fill=True,fc='g',alpha=0.7)
         plt.gca().add_patch(c)
         start_x = start_x + best_rad*m.cos(angle)
         start_y = start_y + best_rad*m.sin(angle)
@@ -73,22 +75,22 @@ def cast_ray(src):
     global x_residual, y_residual
     #lets first define the range of angles
     start_angle = -m.pi/2
-    end_angle = 4*m.pi
+    end_angle = 6*m.pi
 
     #extract the start point
     start_x = src.x
     start_y = src.y
 
     #create range of theta values
-    angles = np.linspace(start_angle, end_angle, 500)
-    range = 14
+    angles = np.linspace(start_angle, end_angle, 600)
+    range = 12
     for angle in angles:
         plt.cla()
         plot_setup()
         range = magic_function(start_x, start_y, angle)
         end_x = start_x + range*m.cos(angle)
         end_y = start_y + range*m.sin(angle)
-        plt.plot([start_x, end_x],[start_y, end_y],'w--')
+        plt.plot([start_x, end_x],[start_y, end_y],'r--')
         # plot_residual(x_residual, y_residual)
 
         # if isclose(angle%10,0,abs_tol=1,rel_tol=0.5):
@@ -102,6 +104,8 @@ def cast_ray(src):
         plot_obs(ob3)
         plot_obs(ob4)
         plot_obs(ob5)
+        plot_obs(ob6)
+        plot_obs(ob7)
 
         plt.pause(0.001)
 
