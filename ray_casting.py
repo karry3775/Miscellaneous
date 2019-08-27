@@ -57,7 +57,7 @@ def magic_function(start_x, start_y, angle):
             if dist<best_rad:
                 best_rad = dist
         #draw a circle
-        c = plt.Circle((start_x, start_y), best_rad, ec='w',fill=False)
+        c = plt.Circle((start_x, start_y), best_rad, ec='w',fill=True,fc='w',alpha=0.5)
         plt.gca().add_patch(c)
         start_x = start_x + best_rad*m.cos(angle)
         start_y = start_y + best_rad*m.sin(angle)
@@ -73,14 +73,14 @@ def cast_ray(src):
     global x_residual, y_residual
     #lets first define the range of angles
     start_angle = -m.pi/2
-    end_angle = m.pi/2
+    end_angle = 4*m.pi
 
     #extract the start point
     start_x = src.x
     start_y = src.y
 
     #create range of theta values
-    angles = np.linspace(start_angle, end_angle, 100)
+    angles = np.linspace(start_angle, end_angle, 500)
     range = 14
     for angle in angles:
         plt.cla()
@@ -89,7 +89,7 @@ def cast_ray(src):
         end_x = start_x + range*m.cos(angle)
         end_y = start_y + range*m.sin(angle)
         plt.plot([start_x, end_x],[start_y, end_y],'w--')
-        plot_residual(x_residual, y_residual)
+        # plot_residual(x_residual, y_residual)
 
         # if isclose(angle%10,0,abs_tol=1,rel_tol=0.5):
         #     x_residual = []
