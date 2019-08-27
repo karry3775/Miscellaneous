@@ -74,15 +74,15 @@ def magic_function(start_x, start_y, angle):
 def cast_ray(src):
     global x_residual, y_residual
     #lets first define the range of angles
-    start_angle = -m.pi/2
-    end_angle = 6*m.pi
+    start_angle = 0
+    end_angle = 2*m.pi
 
     #extract the start point
     start_x = src.x
     start_y = src.y
 
     #create range of theta values
-    angles = np.linspace(start_angle, end_angle, 600)
+    angles = np.linspace(start_angle, end_angle, 300)
     range = 12
     for angle in angles:
         plt.cla()
@@ -117,8 +117,12 @@ def main():
     src = Source(5,5)
     plt.plot(src.x,src.y,'go',label='Source')
     cast_ray(src)
-
+    plt.pause(1)
+    plt.cla()
+    plot_setup()
+    plt.plot(x_residual, y_residual,'.',color = 'orange',label='sensor points')
     plt.legend()
+    plt.title('GENERATED MAP')
     plt.show()
 
 
